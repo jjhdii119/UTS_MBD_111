@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_alin
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: uts_db
+    ports:
+      - "22111:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_alin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "44111:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
